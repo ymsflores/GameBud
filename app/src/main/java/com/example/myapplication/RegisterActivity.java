@@ -55,7 +55,6 @@ public class RegisterActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(RegisterActivity.this,"Failed to insert data USER",Toast.LENGTH_SHORT).show();
                     }
-
                     Intent i = new Intent(RegisterActivity.this,LoginActivity.class);
                     startActivity(i);
                 } else {

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DBHandler extends SQLiteOpenHelper {
 
@@ -15,7 +16,7 @@ public class DBHandler extends SQLiteOpenHelper {
     // table USER
     public static final String USER_TABLE_NAME = "users";
     public static final String USER_ID = "userID";
-    public static final String USER_NAME = "userName";
+    public static final String USER_NAME = "displayName";
     public static final String USER_REGION = "region";
     public static final String USER_SERVER = "server";
     public static final String USER_RANK_PEAK = "peakRank";
@@ -72,7 +73,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     // add a new user to our sqlite database.
-    public boolean insertUser (String userName, String region, String server, String peakRank, String currentRank, String contactTwt, String contactDisc, String contactFb) {
+    public boolean insertUser (String displayName, String region, String server, String peakRank, String currentRank, String contactTwt, String contactDisc, String contactFb) {
         // calling writable method into our database as we are writing data into it
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -85,7 +86,7 @@ public class DBHandler extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
 
         // passing all values along
-        contentValues.put("userName", userName);
+        contentValues.put("displayName", displayName);
         contentValues.put("region", region);
         contentValues.put("server", server);
         contentValues.put("peakRank", peakRank);
@@ -138,10 +139,17 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public Cursor getUserData(String name){
         SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("SELECT * FROM users LEFT JOIN accounts ON accounts.accID = users.accID where accounts.username = name;",null);
+        // Cursor cursor = DB.rawQuery("SELECT * FROM users LEFT JOIN accounts ON users.accID = accounts.accID where accounts.username = '" + name + "' ;",null);
+        // This works! Cursor cursor = DB.rawQuery("SELECT * from accounts where accounts.username = '" + name + "' ;",null);
+        // This works! Select * from users
+        //Cursor cursor = DB.rawQuery("SELECT * from users, accounts where users.accID = accounts.accID and accounts.username = '" + name + "' ;",null);
+        Cursor cursor = DB.rawQuery("SELECT users.displayName, users.accID, accounts.accID from users, accounts", null);
 
-        if (cursor != null) {
-            cursor.moveToFirst();
+        //  Log.d("The name we got is", name);
+        // Debugged: Passed username is correct, should exist in DATABASE
+
+        if (cursor != null && cursor.moveToFirst()) {
+            Log.d("myTag", cursor.getString(0) + ' ' + cursor.getInt(1) + ' ' + cursor.getInt(2));
         }
 
         return cursor;

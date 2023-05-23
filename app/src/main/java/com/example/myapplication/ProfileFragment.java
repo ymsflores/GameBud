@@ -38,7 +38,7 @@ public class ProfileFragment extends Fragment {
         if (cursor.getCount() == 0) {
             Toast.makeText(getActivity(), "No user data exists", Toast.LENGTH_SHORT).show();
         } else {
-            txtName.setText(cursor.getString(0));
+            txtName.setText(cursor.getString(1));
         }
 
         // When user clicks SIGN OUT

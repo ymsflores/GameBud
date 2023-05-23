@@ -16,13 +16,12 @@ public class RegisterActivity extends AppCompatActivity {
     private Button buttonRegister;
     DBHandler mydb;
 
-    String conP;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Instantiate db handler
+        // Instantiate our db handler
         mydb = new DBHandler(this);
 
         // Get our GUI elements
@@ -44,23 +43,17 @@ public class RegisterActivity extends AppCompatActivity {
                 int accID = mydb.getAccID(username);
                 Log.d("You are in Register Activity!", String.valueOf(accID));
 
-                boolean b2 = mydb.insertUser("Abu Maomao", "desc", "region", "server", "peak", "current", "test", "test", "test", accID);
-
                 // If registration was successful, proceed to PROFILE CREATION
                 // If unsuccessful, inform user
                 if (b){
-                    Toast.makeText(RegisterActivity.this,"Data inserted",Toast.LENGTH_SHORT).show();
-                    if (b2) {
-                        Toast.makeText(RegisterActivity.this,"Data inserted USER",Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(RegisterActivity.this,"Failed to insert data USER",Toast.LENGTH_SHORT).show();
-                    }
-                    Intent i = new Intent(RegisterActivity.this,LoginActivity.class);
-                    startActivity(i);
+                    // Move to CreateProfile class, pass accID as it is necessary for user table entry creation
+                    Intent intent = new Intent(RegisterActivity.this,CreateProfileActivity.class);
+                    intent.putExtra("accID", accID);
+                    startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(RegisterActivity.this,"Failed To insert Data",Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
      }

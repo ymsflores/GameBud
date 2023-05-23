@@ -43,13 +43,19 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "No entries exist", Toast.LENGTH_SHORT).show();
                 }
                 if (loginCheck(cursor, username, password)) {
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    // Retrieve accID from the logged in account so we can pass it
                     int accID = dbHandler.getAccID(username);
-                    intent.putExtra("accID", accID);
+
+                    // Clear all input fields
                     editTextUsername.setText("");
                     editTextPassword.setText("");
+
+                    // Move to the next activity, finish current
+                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    intent.putExtra("accID", accID);
                     startActivity(intent);
-                }else {
+                    finish();
+                } else {
                     Toast.makeText(LoginActivity.this, "Incorrect username / password. Please try again!", Toast.LENGTH_SHORT).show();
                 }
                 dbHandler.close();

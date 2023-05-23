@@ -44,8 +44,7 @@ public class ProfileFragment extends Fragment {
         if (cursor.getCount() == 0) {
             Toast.makeText(getActivity(), "No user data exists", Toast.LENGTH_SHORT).show();
         } else {
-            Log.d("What is happening to acc ID??", String.valueOf(accID));
-            txtName.setText(cursor.getString(0));
+            txtName.setText(cursor.getString(1));
             txtDesc.setText(cursor.getString(2));
             txtRegion.setText(cursor.getString(3));
             txtServer.setText(cursor.getString(4));
@@ -58,7 +57,6 @@ public class ProfileFragment extends Fragment {
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Perform registration logic here
                 Intent intent = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

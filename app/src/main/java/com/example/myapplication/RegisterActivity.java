@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,7 +41,10 @@ public class RegisterActivity extends AppCompatActivity {
                 // Insert values into our account table
                 // Return boolean value to check if successful
                 boolean b = mydb.insertAcc(username, password);
-                boolean b2 = mydb.insertUser("test", "test", "test", "test", "test", "test", "test", "test");
+                int accID = mydb.getAccID(username);
+                Log.d("You are in Register Activity!", String.valueOf(accID));
+
+                boolean b2 = mydb.insertUser("Abu Maomao", "desc", "region", "server", "peak", "current", "test", "test", "test", accID);
 
                 // If registration was successful, proceed to PROFILE CREATION
                 // If unsuccessful, inform user

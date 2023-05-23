@@ -63,18 +63,19 @@
             app:srcCompat="@drawable/small_icon" />
 
         <TextView
-            android:id="@+id/textView19"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/txtCurr"
+            android:layout_width="110dp"
+            android:layout_height="23dp"
             android:fontFamily="@font/krub_semibold"
             android:text="Iron 1"
+            android:textAlignment="viewStart"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.616"
+            app:layout_constraintHorizontal_bias="0.764"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.558" />
+            app:layout_constraintVertical_bias="0.559" />
 
         <TextView
             android:id="@+id/textView20"
@@ -92,11 +93,12 @@
             app:layout_constraintVertical_bias="0.584" />
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/txtRegion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/krub_semibold"
             android:text="Asia Pacific"
+            android:textAlignment="viewStart"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -106,11 +108,12 @@
             app:layout_constraintVertical_bias="0.424" />
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/txtPeak"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/krub_semibold"
             android:text="Radiant #1"
+            android:textAlignment="viewStart"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -135,19 +138,19 @@
             app:layout_constraintVertical_bias="0.584" />
 
         <TextView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/txtServer"
+            android:layout_width="95dp"
+            android:layout_height="23dp"
             android:fontFamily="@font/krub_semibold"
             android:text="Hong Kong / Singapore"
-            android:textAlignment="textStart"
+            android:textAlignment="viewStart"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.704"
+            app:layout_constraintHorizontal_bias="0.572"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.424" />
+            app:layout_constraintVertical_bias="0.426" />
 
         <TextView
             android:id="@+id/textView15"
@@ -237,7 +240,7 @@
             app:layout_constraintVertical_bias="0.16" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/txtDesc"
             android:layout_width="176dp"
             android:layout_height="58dp"
             android:fontFamily="@font/krub_regular"
@@ -333,6 +336,7 @@
 
         <Button
             android:id="@+id/btnSignOut"
+            android:background="@android:color/transparent"
             android:layout_width="118dp"
             android:layout_height="47dp"
             android:layout_marginStart="16dp"

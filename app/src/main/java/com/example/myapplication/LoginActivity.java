@@ -44,7 +44,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (loginCheck(cursor, username, password)) {
                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                    intent.putExtra("username", username);
+                    int accID = dbHandler.getAccID(username);
+                    intent.putExtra("accID", accID);
                     editTextUsername.setText("");
                     editTextPassword.setText("");
                     startActivity(intent);

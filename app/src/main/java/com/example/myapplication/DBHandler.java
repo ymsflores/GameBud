@@ -17,6 +17,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public static final String USER_TABLE_NAME = "users";
     public static final String USER_ID = "userID";
     public static final String USER_NAME = "displayName";
+    public static final String USER_DESC = "userDesc";
     public static final String USER_REGION = "region";
     public static final String USER_SERVER = "server";
     public static final String USER_RANK_PEAK = "peakRank";
@@ -39,8 +40,9 @@ public class DBHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + USER_TABLE_NAME + " ("
-                + USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + USER_NAME + " TEXT,"
+                + USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+                + USER_NAME + " TEXT, "
+                + USER_DESC + " TEXT, "
                 + USER_REGION + " TEXT,"
                 + USER_SERVER + " TEXT,"
                 + USER_RANK_PEAK + " TEXT,"
@@ -57,9 +59,9 @@ public class DBHandler extends SQLiteOpenHelper {
         db.execSQL(query);
 
         query = "CREATE TABLE " + ACC_TABLE_NAME + " ("
-                + ACC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + ACC_USERNAME + " TEXT,"
-                + ACC_PASSWORD + " TEXT)";
+                + ACC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                + ACC_USERNAME + " TEXT NOT NULL,"
+                + ACC_PASSWORD + " TEXT NOT NULL)";
 
         db.execSQL(query);
     }
@@ -73,20 +75,16 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     // add a new user to our sqlite database.
-    public boolean insertUser (String displayName, String region, String server, String peakRank, String currentRank, String contactTwt, String contactDisc, String contactFb) {
+    public boolean insertUser (String displayName, String userDesc, String region, String server, String peakRank, String currentRank, String contactTwt, String contactDisc, String contactFb, int accID) {
         // calling writable method into our database as we are writing data into it
         SQLiteDatabase db = this.getWritableDatabase();
-
-        // retrieve max ID, or our new user
-        Cursor cursor = db.rawQuery("Select MAX(userID) from users",null);
-        cursor.moveToNext();
-        int accID = cursor.getInt(0);
 
         // creating a variable for our column values
         ContentValues contentValues = new ContentValues();
 
         // passing all values along
         contentValues.put("displayName", displayName);
+        contentValues.put("userDesc", userDesc);
         contentValues.put("region", region);
         contentValues.put("server", server);
         contentValues.put("peakRank", peakRank);
@@ -95,6 +93,7 @@ public class DBHandler extends SQLiteOpenHelper {
         contentValues.put("contactDisc", contactDisc);
         contentValues.put("contactFb", contactFb);
         contentValues.put("accID", accID);
+        //Log.d("accID in user creation", String.valueOf(accID));
 
         // passing values to our table
         db.insert("users", null, contentValues);
@@ -130,29 +129,36 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("Select * from accounts ",null);
 
-        if (cursor != null) {
-            cursor.moveToFirst();
+        if (cursor != null && cursor.moveToFirst()) {
+            // here!
         }
 
         return cursor;
     }
 
-    public Cursor getUserData(String name){
+    public Cursor getUserData(int accIDInput){
         SQLiteDatabase DB = this.getWritableDatabase();
-        // Cursor cursor = DB.rawQuery("SELECT * FROM users LEFT JOIN accounts ON users.accID = accounts.accID where accounts.username = '" + name + "' ;",null);
-        // This works! Cursor cursor = DB.rawQuery("SELECT * from accounts where accounts.username = '" + name + "' ;",null);
-        // This works! Select * from users
-        //Cursor cursor = DB.rawQuery("SELECT * from users, accounts where users.accID = accounts.accID and accounts.username = '" + name + "' ;",null);
-        Cursor cursor = DB.rawQuery("SELECT users.displayName, users.accID, accounts.accID from users, accounts", null);
 
-        //  Log.d("The name we got is", name);
-        // Debugged: Passed username is correct, should exist in DATABASE
+        Log.d("accID hello??", String.valueOf(accIDInput));
+        Cursor cursor = DB.rawQuery("SELECT * from users where users.accID = " + accIDInput,null);
 
         if (cursor != null && cursor.moveToFirst()) {
-            Log.d("myTag", cursor.getString(0) + ' ' + cursor.getInt(1) + ' ' + cursor.getInt(2));
+            Log.d("user ID hello??", String.valueOf(cursor.getInt(0)));
         }
 
         return cursor;
+    }
+
+    public int getAccID(String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT accID from accounts where accounts.username = '" + name + "'", null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            Log.d("Get ACC ID!", String.valueOf(cursor.getInt(0)));
+        }
+
+        return cursor.getInt(0);
     }
 
 }

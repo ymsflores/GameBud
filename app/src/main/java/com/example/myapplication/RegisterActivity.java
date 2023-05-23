@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,7 +24,7 @@ public class RegisterActivity extends AppCompatActivity {
         mydb = new DBHandler(this);
 
         // Get our GUI elements
-        editTextUsername = findViewById(R.id.editTextUsername);
+        editTextUsername = findViewById(R.id.editTextSearch);
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonRegister = findViewById(R.id.button);
 

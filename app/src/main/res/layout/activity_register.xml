@@ -8,7 +8,7 @@
     android:background="@drawable/bg_register">
 
     <EditText
-        android:id="@+id/editTextUsername"
+        android:id="@+id/editTextSearch"
         android:layout_width="304dp"
         android:layout_height="57dp"
         android:layout_marginStart="48dp"
@@ -39,7 +39,7 @@
         android:textCursorDrawable="@drawable/color_cursor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUsername"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSearch"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button

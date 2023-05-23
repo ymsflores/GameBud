@@ -7,9 +7,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.sql.Array;
@@ -42,6 +46,24 @@ public class BrowseFragment extends Fragment {
         // Finally, call the function to display our data
         displayData();
 
+        EditText editTextSearch =  view.findViewById(R.id.editTextSearch);
+        editTextSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Log.d("text has changed!", s.toString());
+                filter(s.toString()) ;
+            }
+        });
         return view;
     }
 
@@ -49,7 +71,6 @@ public class BrowseFragment extends Fragment {
         Cursor cursor = dbHandler.getUserData();
 
         if (cursor.getCount() == 0) {
-            Toast.makeText(getActivity(), "help!", Toast.LENGTH_SHORT).show();
             return;
         } else {
             while (cursor.moveToNext()) {
@@ -58,6 +79,22 @@ public class BrowseFragment extends Fragment {
             }
         }
     }
+
+    private void filter(String text) {
+        ArrayList<String> filteredNames = new ArrayList<>();
+        ArrayList<String> filteredRegions = new ArrayList<>();
+
+        for (int i = 0; i < name.size(); i++) {
+            if (name.get(i).toLowerCase().contains(text.toLowerCase())) {
+                filteredNames.add(name.get(i));
+                filteredRegions.add(region.get(i));
+            }
+        }
+
+        adapter.filterList(filteredNames, filteredRegions);
+
+    }
+
 
 
 }

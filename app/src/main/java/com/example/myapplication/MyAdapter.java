@@ -47,4 +47,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             txtRegion = itemView.findViewById(R.id.cardTxtRegion);
         }
     }
+
+    public void filterList(ArrayList<String> filteredNames, ArrayList<String> filteredRegions) {
+        name_id = filteredNames;
+        region_id = filteredRegions;
+        notifyDataSetChanged();
+    }
 }

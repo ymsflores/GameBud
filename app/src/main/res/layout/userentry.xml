@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="25dp"
+    android:layout_margin="16dp"
+    android:paddingLeft="80dp"
+    android:backgroundTint="#FF3E3B42">
+    <!--    app:cardElevation="12dp"-->
+    <ImageView
+        android:id="@+id/imgPfp"
+        android:layout_width="91dp"
+        android:layout_height="84dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:srcCompat="@drawable/pfp_placeholder" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="70dp">
+
+            <TextView
+                android:id="@+id/cardTxtName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/kronaone"
+                android:text="SEN Elevenz"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="70dp">
+
+            <TextView
+                android:id="@+id/cardTxtRegion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/krub_medium"
+                android:text="North America"
+                android:textColor="#757575"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -136,16 +136,23 @@ public class DBHandler extends SQLiteOpenHelper {
         return cursor;
     }
 
+    // This is a method to return ONE specific entry from the users table, connected to the logged in account
     public Cursor getUserData(int accIDInput){
         SQLiteDatabase DB = this.getWritableDatabase();
-
-        Log.d("accID hello??", String.valueOf(accIDInput));
         Cursor cursor = DB.rawQuery("SELECT * from users where users.accID = " + accIDInput,null);
-
         if (cursor != null && cursor.moveToFirst()) {
-            Log.d("user ID hello??", String.valueOf(cursor.getInt(0)));
+            // here
         }
+        return cursor;
+    }
 
+    // This is a method to return ALL entries from the users table
+    public Cursor getUserData(){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("SELECT * from users",null);
+        if (cursor != null && cursor.moveToFirst()) {
+            //here
+        }
         return cursor;
     }
 
@@ -155,7 +162,7 @@ public class DBHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("SELECT accID from accounts where accounts.username = '" + name + "'", null);
 
         if (cursor != null && cursor.moveToFirst()) {
-            Log.d("Get ACC ID!", String.valueOf(cursor.getInt(0)));
+            // here
         }
 
         return cursor.getInt(0);

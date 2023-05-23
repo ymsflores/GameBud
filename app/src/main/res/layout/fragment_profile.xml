@@ -314,14 +314,14 @@
             app:srcCompat="@drawable/icon_twt" />
 
         <ImageView
-            android:id="@+id/imageView21"
+            android:id="@+id/pfp"
             android:layout_width="191dp"
             android:layout_height="183dp"
             android:layout_marginTop="72dp"
             android:layout_marginEnd="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/pfp_large1" />
+            app:srcCompat="@drawable/pfp_placeholder" />
 
         <ImageButton
             android:id="@+id/imageButton3"

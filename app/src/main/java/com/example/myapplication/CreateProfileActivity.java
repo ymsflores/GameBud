@@ -57,11 +57,15 @@ public class CreateProfileActivity extends AppCompatActivity {
                 // If profile creation was successful, proceed to LOGIN
                 // If unsuccessful, inform user
                 if (b){
+                    if(displayName.equalsIgnoreCase("") || region.equalsIgnoreCase("") || server.equalsIgnoreCase("") || peak.equalsIgnoreCase("") || current.equalsIgnoreCase("")) {
+                        Toast.makeText(CreateProfileActivity.this,"Please enter all required fields.",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent = new Intent(CreateProfileActivity.this,LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                     // Move to CreateProfile activity
                     // Pass accID as we need the value for database entry creation
-                    Intent intent = new Intent(CreateProfileActivity.this,LoginActivity.class);
-                    startActivity(intent);
-                    finish();
                 } else {
                     // Inform user there has been an error: Add POP-UP overlay if possible
                     Toast.makeText(CreateProfileActivity.this,"Failed to create new PROFILE",Toast.LENGTH_SHORT).show();

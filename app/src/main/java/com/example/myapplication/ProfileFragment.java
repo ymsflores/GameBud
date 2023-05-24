@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ public class ProfileFragment extends Fragment {
         TextView txtServer = view.findViewById(R.id.txtServer);
         TextView txtPeak = view.findViewById(R.id.txtPeak);
         TextView txtCurr = view.findViewById(R.id.txtCurr);
+        RatingBar rBar = view.findViewById(R.id.ratingBar);
 
 
         // Get the username from the login page
@@ -62,6 +64,10 @@ public class ProfileFragment extends Fragment {
             txtFb = cursor.getString(8);
             txtDc = cursor.getString(9);
         }
+
+        // Set up our rating bar from database value
+        rBar.setRating(dbHandler.getRatings(accID));
+        Log.d("Rating here!", String.valueOf(dbHandler.getRatings(accID)));
 
         // When user clicks SIGN OUT
         // Proceed to LOGIN activity

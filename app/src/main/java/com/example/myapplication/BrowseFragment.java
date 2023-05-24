@@ -76,6 +76,10 @@ public class BrowseFragment extends Fragment {
             return;
         } else {
             while (cursor.moveToNext()) {
+                if (cursor.getInt(10) == getActivity().getIntent().getExtras().getInt("accID")) {
+                    continue;
+                }
+
                 name.add(cursor.getString(1));
                 region.add(cursor.getString(3));
                 ids.add(cursor.getInt(10));

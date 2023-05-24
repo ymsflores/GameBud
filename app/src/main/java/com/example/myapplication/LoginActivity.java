@@ -39,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
                 String password = editTextPassword.getText().toString();
                 Cursor cursor = dbHandler.getAccData();
 
+                dbHandler.checkTable();
+
                 if (cursor.getCount() == 0) {
                     Toast.makeText(LoginActivity.this, "No entries exist", Toast.LENGTH_SHORT).show();
                 }

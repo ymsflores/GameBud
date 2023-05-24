@@ -40,16 +40,21 @@ public class RegisterActivity extends AppCompatActivity {
                 // Return boolean value to check if successful
                 boolean b = mydb.insertAcc(username, password);
                 int accID = mydb.getAccID(username);
-                Log.d("You are in Register Activity!", String.valueOf(accID));
+
 
                 // If registration was successful, proceed to PROFILE CREATION
                 // If unsuccessful, inform user
                 if (b){
                     // Move to CreateProfile class, pass accID as it is necessary for user table entry creation
-                    Intent intent = new Intent(RegisterActivity.this,CreateProfileActivity.class);
-                    intent.putExtra("accID", accID);
-                    startActivity(intent);
-                    finish();
+                    if(username.equalsIgnoreCase("") || password.equalsIgnoreCase("")) {
+                        editTextUsername.setError("Please enter all required fields.");
+                        editTextPassword.setError("Please enter all required fields");
+                    } else {
+                        Intent intent = new Intent(RegisterActivity.this, CreateProfileActivity.class);
+                        intent.putExtra("accID", accID);
+                        startActivity(intent);
+                        finish();
+                    }
                 } else {
                     Toast.makeText(RegisterActivity.this,"Failed To insert Data",Toast.LENGTH_SHORT).show();
                 }

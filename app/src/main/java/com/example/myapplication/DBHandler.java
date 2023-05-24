@@ -12,7 +12,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     // db name
     public static final String DB_NAME = "gamebud_db";
-    public static final int dbVersion = 2;
+    public static final int dbVersion = 3;
 
     // table USER
     public static final String USER_TABLE_NAME = "users";
@@ -40,6 +40,14 @@ public class DBHandler extends SQLiteOpenHelper {
     public static final String GAME_TIME = "time";
     public static final String GAME_CODE = "code";
     public static final String GAME_DETAILS = "details";
+
+    // table RATING
+    public static final String RATING_TABLE_NAME = "ratings";
+    public static final String RATING_DESC = "description";
+    public static final String RATING_VAL = "value";
+    public static final String RATING_accSub = "accID_sub";
+    public static final String RATING_accRcv = "accID_rcv";
+
 
     public DBHandler(Context context) {
         super(context, DB_NAME, null, 1);
@@ -87,6 +95,23 @@ public class DBHandler extends SQLiteOpenHelper {
                 + ACC_ID + "))";
 
         db.execSQL(query);
+
+        query = "CREATE TABLE " + RATING_TABLE_NAME + " ("
+                + RATING_DESC + " TEXT NOT NULL,"
+                + RATING_VAL+ " FLOAT NOT NULL,"
+                + RATING_accSub + " INTEGER NOT NULL,"
+                + RATING_accRcv + " INTEGER NOT NULL,"
+                + "PRIMARY KEY (" + RATING_accSub +"," + RATING_accRcv + "),"
+                + " CONSTRAINT fk_accSub_account FOREIGN KEY ("
+                + RATING_accSub + ") REFERENCES "
+                + ACC_TABLE_NAME + "("
+                + ACC_ID + ")," +
+                " CONSTRAINT fk_accRcv_account FOREIGN KEY ("
+                + RATING_accRcv + ") REFERENCES "
+                + ACC_TABLE_NAME + "("
+                + ACC_ID + "))";
+
+        db.execSQL(query);
     }
 
     @Override
@@ -95,6 +120,7 @@ public class DBHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + USER_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + ACC_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + GAME_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + RATING_TABLE_NAME);
         onCreate(db);
     }
 
@@ -171,6 +197,36 @@ public class DBHandler extends SQLiteOpenHelper {
         return true;
     }
 
+    public boolean insertRating(String description, float value, int accID_sub, int accID_rcv) {
+        // calling writable method into our database as we are writing data into it
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // creating a variable for our column values
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("description", description);
+        contentValues.put("value", value);
+        contentValues.put("accID_sub", accID_sub);
+        contentValues.put("accID_rcv", accID_rcv);
+
+        // check if rating already exists for user pair
+        // if exists, update row. if not, insert new row.
+        if (checkRating(accID_sub, accID_rcv)) {
+            String[] args = { String.valueOf(accID_sub), String.valueOf(accID_rcv)};
+            db.update(RATING_TABLE_NAME, contentValues, "accID_sub=? AND accID_rcv=?", args);
+            Log.d("Did this work? lol", "");
+        } else {
+            db.insert("ratings", null, contentValues);
+        }
+
+
+
+        // closing db after insertion
+        db.close();
+
+        return true;
+    }
+
     public Cursor getAccData(){
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("Select * from accounts ",null);
@@ -222,6 +278,21 @@ public class DBHandler extends SQLiteOpenHelper {
         return cursor.getInt(0);
     }
 
+    public float getRatings(int accID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT avg(value) from ratings where accID_rcv = " + accID, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            Log.d("This is the rating in getRatings:" , String.valueOf(cursor.getFloat(0)));
+        } else {
+            Log.d("It's empty!", "");
+        }
+
+        return cursor.getFloat(0);
+    }
+
+
     public Cursor gameCheck(int accID) {
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("SELECT * from games where accID = " + accID,null);
@@ -231,6 +302,35 @@ public class DBHandler extends SQLiteOpenHelper {
         }
 
         return cursor;
+    }
+    // Check if user has existing review from user
+    public boolean checkRating(int id1, int id2) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("SELECT value from ratings where accID_sub = " + id1 + " and accID_rcv =" + id2, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            Log.d("Rating exists!", String.valueOf(cursor.getFloat(0)));
+            return true;
+        }
+
+        return false;
+    }
+
+    // Check if table was successfully created
+    public void checkTable() {
+        String table_name = "";
+
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("SELECT name FROM sqlite_master WHERE type='table'", null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            while (cursor.moveToNext()){
+                if (cursor.getString(0).equals(table_name)) {
+                    Log.d("Table exists!", "");
+                }
+            }
+
+        }
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.Rating;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -14,8 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class OtherProfileFragment extends Fragment {
     String txtFb = "";
@@ -40,8 +44,10 @@ public class OtherProfileFragment extends Fragment {
         TextView txtServer = view.findViewById(R.id.txtServer);
         TextView txtPeak = view.findViewById(R.id.txtPeak);
         TextView txtCurr = view.findViewById(R.id.txtCurr);
+        RatingBar rBar = view.findViewById(R.id.ratingBar);
 
-        // Get the accID from the cardview selected
+
+        // Get the accID from the selected card in recyclerview
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             accID = (int) bundle.get("accID");
@@ -67,6 +73,25 @@ public class OtherProfileFragment extends Fragment {
             txtFb = cursor.getString(8);
             txtDc = cursor.getString(9);
         }
+
+        // Set up our rating bar from database value
+        rBar.setRating(dbHandler.getRatings(accID));
+        Log.d("Rating here!", String.valueOf(dbHandler.getRatings(accID)));
+
+        // Retrieve out floating action button
+        // Open the Add Game screen on user click
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("accID", accID);
+
+                RateFragment fragment = new RateFragment();
+                fragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).addToBackStack(null).commit();
+            }
+        });
 
         // When user clicks SIGN OUT
         // Proceed to LOGIN activity

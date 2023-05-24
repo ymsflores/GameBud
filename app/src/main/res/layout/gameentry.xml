@@ -1,66 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="150dp"
+    android:layout_height="150dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="25dp"
     android:layout_margin="16dp"
-    android:paddingLeft="80dp"
     android:backgroundTint="#FF3E3B42">
-    <!--    app:cardElevation="12dp"-->
-    <ImageView
-        android:id="@+id/imgPfp"
-        android:layout_width="91dp"
-        android:layout_height="84dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        app:srcCompat="@drawable/pfp_placeholder" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="16dp"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView21"
+            android:layout_width="25dp"
+            android:layout_height="22dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/pfp_placeholder" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_gravity="center_vertical"
-            android:paddingLeft="70dp">
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/cardTxtName"
+                android:id="@+id/cardTxtGameName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/kronaone"
-                android:text="SEN Elevenz"
+                android:fontFamily="@font/krub_medium"
+                android:text="chill games only!!"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_gravity="center_vertical"
-            android:paddingLeft="70dp">
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/cardTxtRegion"
+                android:id="@+id/cardTxtTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/krub_medium"
-                android:text="North America"
+                android:text="1h ago"
                 android:textColor="#757575"
                 android:textSize="15sp" />
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/btnViewUser"
+        <ImageView
+            android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             app:srcCompat="@drawable/roundedrect_widetiny" />
 
 

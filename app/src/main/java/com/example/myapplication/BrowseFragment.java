@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class BrowseFragment extends Fragment {
     RecyclerView recyclerView;
     ArrayList<String> name, region;
+    ArrayList<Integer> ids;
     DBHandler dbHandler;
     MyAdapter adapter;
     @Override
@@ -36,10 +37,11 @@ public class BrowseFragment extends Fragment {
         // Instantiate our arraylists
         name = new ArrayList<>();
         region = new ArrayList<>();
+        ids = new ArrayList<>();
 
         // Set up our recycleview
         recyclerView = view.findViewById(R.id.recyclerview);
-        adapter = new MyAdapter(getActivity(), name, region);
+        adapter = new MyAdapter(getActivity(), name, region, ids);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -76,6 +78,7 @@ public class BrowseFragment extends Fragment {
             while (cursor.moveToNext()) {
                 name.add(cursor.getString(1));
                 region.add(cursor.getString(3));
+                ids.add(cursor.getInt(10));
             }
         }
     }

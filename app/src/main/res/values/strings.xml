@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">GameBud!</string>
     <color name="bggrey">#28252D</color>
     <string name="title_activity_bottomnav">BottomnavActivity</string>
     <string name="title_home">Home</string>

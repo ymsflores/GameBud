@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Instantiate our db handler
         dbHandler = new DBHandler(this);
+        dbHandler.insertGame("chill games only!!!", "1h ago");
 
         // When user clicks Login
         buttonLogin.setOnClickListener(new View.OnClickListener() {

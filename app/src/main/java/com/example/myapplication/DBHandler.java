@@ -12,6 +12,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     // db name
     public static final String DB_NAME = "gamebud_db";
+    public static final int dbVersion = 2;
 
     // table USER
     public static final String USER_TABLE_NAME = "users";
@@ -31,6 +32,12 @@ public class DBHandler extends SQLiteOpenHelper {
     public static final String ACC_ID = "accID";
     public static final String ACC_USERNAME = "username";
     public static final String ACC_PASSWORD = "password";
+
+    // table GAME
+    public static final String GAME_TABLE_NAME = "games";
+    public static final String GAME_ID = "gameID";
+    public static final String GAME_NAME = "name";
+    public static final String GAME_TIME = "time";
 
     public DBHandler(Context context) {
         super(context, DB_NAME, null, 1);
@@ -64,6 +71,13 @@ public class DBHandler extends SQLiteOpenHelper {
                 + ACC_PASSWORD + " TEXT NOT NULL)";
 
         db.execSQL(query);
+
+        query = "CREATE TABLE " + GAME_TABLE_NAME + " ("
+                + GAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                + GAME_NAME + " TEXT NOT NULL,"
+                + GAME_TIME + " TEXT NOT NULL)";
+
+        db.execSQL(query);
     }
 
     @Override
@@ -71,6 +85,7 @@ public class DBHandler extends SQLiteOpenHelper {
         // this method is called to check if the table exists already.
         db.execSQL("DROP TABLE IF EXISTS " + USER_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + ACC_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + GAME_TABLE_NAME);
         onCreate(db);
     }
 
@@ -125,14 +140,32 @@ public class DBHandler extends SQLiteOpenHelper {
         return true;
     }
 
+    public boolean insertGame(String name, String time) {
+        // calling writable method into our database as we are writing data into it
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // creating a variable for our column values
+        ContentValues contentValues = new ContentValues();
+
+        // passing all values along
+        contentValues.put("name", name);
+        contentValues.put("time", time);
+
+        // passing values to our table
+        db.insert("games", null, contentValues);
+
+        // closing db after insertion
+        db.close();
+
+        return true;
+    }
+
     public Cursor getAccData(){
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("Select * from accounts ",null);
-
         if (cursor != null && cursor.moveToFirst()) {
             // here!
         }
-
         return cursor;
     }
 
@@ -150,6 +183,16 @@ public class DBHandler extends SQLiteOpenHelper {
     public Cursor getUserData(){
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("SELECT * from users",null);
+        if (cursor != null && cursor.moveToFirst()) {
+            //here
+        }
+        return cursor;
+    }
+
+    // This is a method to return ALL entries from the users table
+    public Cursor getGameData(){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("SELECT * from games",null);
         if (cursor != null && cursor.moveToFirst()) {
             //here
         }

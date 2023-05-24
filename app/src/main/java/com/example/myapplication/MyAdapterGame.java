@@ -48,10 +48,4 @@ public class MyAdapterGame extends RecyclerView.Adapter<MyAdapterGame.MyViewHold
         }
     }
 
-    /*
-    public void filterList(ArrayList<String> filteredNames, ArrayList<String> filteredRegions) {
-        name_id = filteredNames;
-        time_id = filteredRegions;
-        notifyDataSetChanged();
-    }*/
 }

@@ -38,6 +38,8 @@ public class DBHandler extends SQLiteOpenHelper {
     public static final String GAME_ID = "gameID";
     public static final String GAME_NAME = "name";
     public static final String GAME_TIME = "time";
+    public static final String GAME_CODE = "code";
+    public static final String GAME_DETAILS = "details";
 
     public DBHandler(Context context) {
         super(context, DB_NAME, null, 1);
@@ -75,7 +77,14 @@ public class DBHandler extends SQLiteOpenHelper {
         query = "CREATE TABLE " + GAME_TABLE_NAME + " ("
                 + GAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
                 + GAME_NAME + " TEXT NOT NULL,"
-                + GAME_TIME + " TEXT NOT NULL)";
+                + GAME_TIME+ " TEXT NOT NULL,"
+                + GAME_CODE + " TEXT NOT NULL,"
+                + GAME_DETAILS + " TEXT NOT NULL,"
+                + ACC_ID + " INTEGER,"
+                + " CONSTRAINT fk_user_account FOREIGN KEY ("
+                + ACC_ID + ") REFERENCES "
+                + ACC_TABLE_NAME + "("
+                + ACC_ID + "))";
 
         db.execSQL(query);
     }
@@ -108,7 +117,6 @@ public class DBHandler extends SQLiteOpenHelper {
         contentValues.put("contactDisc", contactDisc);
         contentValues.put("contactFb", contactFb);
         contentValues.put("accID", accID);
-        //Log.d("accID in user creation", String.valueOf(accID));
 
         // passing values to our table
         db.insert("users", null, contentValues);
@@ -140,7 +148,7 @@ public class DBHandler extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean insertGame(String name, String time) {
+    public boolean insertGame(String name, String time, String code, String details, int accID) {
         // calling writable method into our database as we are writing data into it
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -150,6 +158,9 @@ public class DBHandler extends SQLiteOpenHelper {
         // passing all values along
         contentValues.put("name", name);
         contentValues.put("time", time);
+        contentValues.put("code", code);
+        contentValues.put("details", details);
+        contentValues.put("accID", accID);
 
         // passing values to our table
         db.insert("games", null, contentValues);
@@ -209,6 +220,17 @@ public class DBHandler extends SQLiteOpenHelper {
         }
 
         return cursor.getInt(0);
+    }
+
+    public Cursor gameCheck(int accID) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("SELECT * from games where accID = " + accID,null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            //here
+        }
+
+        return cursor;
     }
 
 }

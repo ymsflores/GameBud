@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Instantiate our db handler
         dbHandler = new DBHandler(this);
-        dbHandler.insertGame("chill games only!!!", "1h ago");
+        //dbHandler.insertGame("chill games only!!!", "1h ago");
 
         // When user clicks Login
         buttonLogin.setOnClickListener(new View.OnClickListener() {
@@ -59,8 +59,6 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Incorrect username / password. Please try again!", Toast.LENGTH_SHORT).show();
                 }
                 dbHandler.close();
-
-
             }
         });
 

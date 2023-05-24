@@ -11,4 +11,5 @@
     <string name="Collection">Collection</string>
     <string name="join_game">Join Game</string>
     <string name="profile">Profile</string>
+    <string name="submit" />
 </resources>

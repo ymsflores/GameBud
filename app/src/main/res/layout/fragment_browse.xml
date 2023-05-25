@@ -31,27 +31,20 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.093" />
 
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="374dp"
-            android:layout_height="28dp"
-            android:layout_marginTop="24dp"
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/kronaone"
+            android:text="Browse by Game"
+            android:textColor="#BA77FD"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.486"
+            app:layout_constraintHorizontal_bias="0.065"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/header_browse_val" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="25dp"
-            android:layout_height="26dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="20dp"
-            android:text=""
-            android:alpha="0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintVertical_bias="0.033" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"

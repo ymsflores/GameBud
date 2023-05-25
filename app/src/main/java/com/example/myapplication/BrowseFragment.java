@@ -52,17 +52,14 @@ public class BrowseFragment extends Fragment {
         editTextSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                Log.d("text has changed!", s.toString());
                 filter(s.toString()) ;
             }
         });
@@ -75,6 +72,7 @@ public class BrowseFragment extends Fragment {
         if (cursor.getCount() == 0) {
             return;
         } else {
+            cursor.moveToPosition(-1);
             while (cursor.moveToNext()) {
                 if (cursor.getInt(10) == getActivity().getIntent().getExtras().getInt("accID")) {
                     continue;

@@ -77,8 +77,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public boolean loginCheck(Cursor cursor, String username, String password) {
+        cursor.moveToPosition(-1);
+
         while (cursor.moveToNext()){
-            //Log.d("LOGIN CHECK!!!!!!!!!!!", cursor.getString(0) + " " + cursor.getString(1) );
             if (cursor.getString(1).equals(username)) {
                 if (cursor.getString(2).equals(password)) {
                     return true;

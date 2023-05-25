@@ -32,18 +32,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.305" />
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="40dp"
-            android:fontFamily="@font/kronaone"
-            android:text="VALORANT"
-            android:textColor="#FFFFFF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="34dp"
@@ -349,17 +337,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/pfp_placeholder" />
-
-        <ImageButton
-            android:id="@+id/imageButton3"
-            android:layout_width="13dp"
-            android:layout_height="13dp"
-            android:layout_marginTop="34dp"
-            android:layout_marginEnd="20dp"
-            android:background="#00FFFFFF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/dropdown_arrow" />
 
         <Button
             android:id="@+id/btnSignOut"

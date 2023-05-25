@@ -76,6 +76,8 @@ public class JoinFragment extends Fragment {
         if (cursor.getCount() == 0) {
             return;
         } else {
+            cursor.moveToPosition(-1);
+
             while (cursor.moveToNext()) {
                 // Calculate difference between current time and game creation time
                 // First, retrieve our saved time and convert it back to Date
@@ -91,7 +93,6 @@ public class JoinFragment extends Fragment {
                         timeFin = String.valueOf(TimeUnit.MINUTES.convert(format.parse(currDate).getTime() - format.parse(timeTemp).getTime(), TimeUnit.MILLISECONDS)) + (" mins ago");
                     } else {
                         timeFin += (diff + (" hrs ago"));
-                        Log.d("Help", "");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

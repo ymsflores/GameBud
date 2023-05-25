@@ -222,7 +222,6 @@ public class DBHandler extends SQLiteOpenHelper {
         if (checkRating(accID_sub, accID_rcv)) {
             String[] args = { String.valueOf(accID_sub), String.valueOf(accID_rcv)};
             db.update(RATING_TABLE_NAME, contentValues, "accID_sub=? AND accID_rcv=?", args);
-            Log.d("Did this work? lol", "");
         } else {
             db.insert("ratings", null, contentValues);
         }
@@ -258,9 +257,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public Cursor getUserData(){
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("SELECT * from users",null);
-        if (cursor != null && cursor.moveToFirst()) {
-            //here
-        }
+
         return cursor;
     }
 
@@ -277,9 +274,9 @@ public class DBHandler extends SQLiteOpenHelper {
     public Cursor getGameData(int accID){
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("SELECT * from games where accID = " + accID,null);
-        if (cursor != null && cursor.moveToFirst()) {
-            //here
-        }
+        //if (cursor != null && cursor.moveToFirst()) {
+         //   //here
+        //}
         return cursor;
     }
 
@@ -301,9 +298,7 @@ public class DBHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("SELECT avg(value) from ratings where accID_rcv = " + accID, null);
 
         if (cursor != null && cursor.moveToFirst()) {
-            Log.d("This is the rating in getRatings:" , String.valueOf(cursor.getFloat(0)));
         } else {
-            Log.d("It's empty!", "");
         }
 
         return cursor.getFloat(0);
@@ -326,7 +321,6 @@ public class DBHandler extends SQLiteOpenHelper {
         Cursor cursor = DB.rawQuery("SELECT value from ratings where accID_sub = " + id1 + " and accID_rcv =" + id2, null);
 
         if (cursor != null && cursor.moveToFirst()) {
-            Log.d("Rating exists!", String.valueOf(cursor.getFloat(0)));
             return true;
         }
 
@@ -343,7 +337,6 @@ public class DBHandler extends SQLiteOpenHelper {
         if (cursor != null && cursor.moveToFirst()) {
             while (cursor.moveToNext()){
                 if (cursor.getString(0).equals(table_name)) {
-                    Log.d("Table exists!", "");
                 }
             }
 

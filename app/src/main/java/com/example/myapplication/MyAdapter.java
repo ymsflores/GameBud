@@ -44,7 +44,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Onclick", "Does this work?");
                 int accID = (int) acc_id.get(holder.getAdapterPosition());
                 Bundle bundle = new Bundle();
                 bundle.putInt("accID", accID);

@@ -51,7 +51,6 @@ public class OtherProfileFragment extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             accID = (int) bundle.get("accID");
-            Log.d("Successful!", String.valueOf(accID));
         }
 
         // Instantiate our DBHandler
@@ -76,7 +75,6 @@ public class OtherProfileFragment extends Fragment {
 
         // Set up our rating bar from database value
         rBar.setRating(dbHandler.getRatings(accID));
-        Log.d("Rating here!", String.valueOf(dbHandler.getRatings(accID)));
 
         // Retrieve out floating action button
         // Open the Add Game screen on user click

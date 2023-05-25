@@ -67,7 +67,6 @@ public class ProfileFragment extends Fragment {
 
         // Set up our rating bar from database value
         rBar.setRating(dbHandler.getRatings(accID));
-        Log.d("Rating here!", String.valueOf(dbHandler.getRatings(accID)));
 
         // When user clicks SIGN OUT
         // Proceed to LOGIN activity

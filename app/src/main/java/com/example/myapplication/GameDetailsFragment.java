@@ -32,7 +32,6 @@ public class GameDetailsFragment extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             accID = (int) bundle.get("accID");
-            Log.d("Successful!", String.valueOf(accID));
         }
 
         // Instantiate our DBHandler
@@ -44,6 +43,7 @@ public class GameDetailsFragment extends Fragment {
         if (cursor.getCount() == 0) {
             Toast.makeText(getActivity(), "No game data exists", Toast.LENGTH_SHORT).show();
         } else {
+            cursor.moveToNext();
             txtTitle.setText(cursor.getString(1));
             txtDetails.setText(cursor.getString(4));
             txtCode.setText(cursor.getString(3));

@@ -33,7 +33,7 @@ public class RateFragment extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             accID_rcv = (int) bundle.get("accID");
-            //Log.d("Successful!", String.valueOf(accID_rcv));
+            //("Successful!", String.valueOf(accID_rcv));
         }
 
 
@@ -42,7 +42,6 @@ public class RateFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Are the values correct?", String.valueOf(accID_sub) + ' ' + String.valueOf(accID_rcv));
                 // Retrieve the rating and insert it into our database
                 float rating = rBar.getRating();
                 dbHandler.insertRating("Placeholder description", rating, accID_sub, accID_rcv);

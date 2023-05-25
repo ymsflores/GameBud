@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 public class JoinFragment extends Fragment {
     RecyclerView recyclerView;
     ArrayList<String> name, time;
+    ArrayList<Integer> ids;
     DBHandler dbHandler;
     MyAdapterGame adapter;
     @Override
@@ -42,10 +43,11 @@ public class JoinFragment extends Fragment {
         // Instantiate our arraylists
         name = new ArrayList<>();
         time = new ArrayList<>();
+        ids = new ArrayList<>();
 
         // Set up our recycleview
         recyclerView = view.findViewById(R.id.recyclerviewgame);
-        adapter = new MyAdapterGame(getActivity(), name, time);
+        adapter = new MyAdapterGame(getActivity(), name, time, ids);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL, false));
 
@@ -84,20 +86,27 @@ public class JoinFragment extends Fragment {
                     String currDate = getCurrentDate();
 
                     int diff = (int) TimeUnit.HOURS.convert(format.parse(currDate).getTime() - format.parse(timeTemp).getTime(), TimeUnit.MILLISECONDS);
+
                     if (diff < 1) {
                         timeFin = String.valueOf(TimeUnit.MINUTES.convert(format.parse(currDate).getTime() - format.parse(timeTemp).getTime(), TimeUnit.MILLISECONDS)) + (" mins ago");
                     } else {
                         timeFin += (diff + (" hrs ago"));
                         Log.d("Help", "");
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
+                // If game belongs to logged in user, do not display it
+                /*
+                if (cursor.getInt(5) == getActivity().getIntent().getExtras().getInt("accID")) {
+                    continue;
+                }*/
+
                 // Add our values to our arraylists
                 name.add(cursor.getString(1));
                 time.add(timeFin);
+                ids.add(cursor.getInt(5));
 
             }
         }

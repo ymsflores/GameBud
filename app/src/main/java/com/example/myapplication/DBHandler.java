@@ -177,7 +177,15 @@ public class DBHandler extends SQLiteOpenHelper {
     public boolean insertGame(String name, String time, String code, String details, int accID) {
         // calling writable method into our database as we are writing data into it
         SQLiteDatabase db = this.getWritableDatabase();
+        String table = GAME_TABLE_NAME;
+        String whereClause = "accID=?";
+        String[] whereArgs = new String[] { String.valueOf(accID) };
 
+        Cursor cursor = gameCheck(accID);
+
+        if (cursor.getCount() != 0) {
+            db.delete(table, whereClause, whereArgs);
+        }
         // creating a variable for our column values
         ContentValues contentValues = new ContentValues();
 
@@ -260,6 +268,15 @@ public class DBHandler extends SQLiteOpenHelper {
     public Cursor getGameData(){
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("SELECT * from games",null);
+        if (cursor != null && cursor.moveToFirst()) {
+            //here
+        }
+        return cursor;
+    }
+
+    public Cursor getGameData(int accID){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("SELECT * from games where accID = " + accID,null);
         if (cursor != null && cursor.moveToFirst()) {
             //here
         }

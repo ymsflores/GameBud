@@ -47,28 +47,19 @@ public class AddGameFragment extends Fragment {
                 // Instantiate our DBHandler
                 // Get user data based on username
                 DBHandler dbHandler = new DBHandler(getActivity());
-                Cursor cursor = dbHandler.gameCheck(accID);
 
-                // Outer IF: Check if required fields are empty
-                // Inner IF: Check if user has ongoing game in database
+                // Check if required fields are empty
                 if (txtName.equalsIgnoreCase("") || txtCode.equalsIgnoreCase("")) {
                     editTxtName.setError("Please enter all required fields.");
                     editTxtCode.setError("Please enter all required fields");
                 } else {
-                    if (cursor.getCount() == 0) {
-                        // Insert new game into our DB
-                        dbHandler.insertGame(txtName, txtTime, txtCode, txtDetails, accID);
+                    // Insert new game into our DB
+                    dbHandler.insertGame(txtName, txtTime, txtCode, txtDetails, accID);
 
-                        // Go back to Join screen
-                        JoinFragment fragment = new JoinFragment();
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).addToBackStack(null).commit();
-                    } else {
-                        // Inform user they have an active invite
-                        Toast.makeText(getActivity(), "You already have an ongoing invite.", Toast.LENGTH_SHORT).show();
-                    }
+                    // Go back to Join screen
+                    JoinFragment fragment = new JoinFragment();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).addToBackStack(null).commit();
                 }
-
-
             }
         });
         return view;
